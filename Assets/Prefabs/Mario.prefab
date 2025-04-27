@@ -166,5 +166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b36278ceaa924f48a877ac1c0862f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runSprites:
+  - {fileID: -8540619613172979209, guid: e12aaae1c9f66400c9b7a7393141d6e7, type: 3}
+  - {fileID: 9030281449398581296, guid: c800e6d604f8c430e80575b60baaeefe, type: 3}
+  - {fileID: -8540619613172979209, guid: e12aaae1c9f66400c9b7a7393141d6e7, type: 3}
+  - {fileID: 4568459519408868020, guid: 8bffc4ee337ff422e8f03a34aa481bd6, type: 3}
+  climbSprite: {fileID: -22975975188484428, guid: ee158e8a02fd441abb99acdf0964ff4a, type: 3}
   moveSpeed: 10
   jumpStrength: 4

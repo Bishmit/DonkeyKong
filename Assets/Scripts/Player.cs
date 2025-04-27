@@ -2,93 +2,98 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    public Sprite[] runSprites;
+    public Sprite climbSprite;
+    private int spriteIndex;
+
     private new Rigidbody2D rigidbody;
     private CapsuleCollider2D capsuleCollider;
 
-    private readonly Collider2D[] overlaps = new Collider2D[4]; 
+    private readonly Collider2D[] overlaps = new Collider2D[4];
 
     private Vector2 direction;
 
-    private bool grounded; 
-    private bool climbing; 
+    private bool grounded;
+    private bool climbing;
 
     public float moveSpeed = 1f;
-    public float jumpStrength = 4f; 
+    public float jumpStrength = 4f;
 
     private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody = GetComponent<Rigidbody2D>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();  
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
+    }
+
+    private void OnEnable()
+    {
+        InvokeRepeating(nameof(AnimateSprite), 1f / 12f, 1f / 12f);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
 
     private void CheckCollision()
     {
-        grounded = false; 
-        climbing = false; 
+        grounded = false;
+        climbing = false;
 
-        float skinOffset = 0.1f; 
-        Vector2 size = capsuleCollider.bounds.size; 
-        size.y += skinOffset; 
+        float skinOffset = 0.1f;
+        Vector2 size = capsuleCollider.bounds.size;
+        size.y += skinOffset;
         size.x /= 2f;
 
         int amount = Physics2D.OverlapBoxNonAlloc(transform.position, size, 0f, overlaps);
 
         for (int i = 0; i < amount; i++)
         {
-            GameObject hit = overlaps[i].gameObject; 
+            GameObject hit = overlaps[i].gameObject;
 
             if (hit.layer == LayerMask.NameToLayer("Ground"))
             {
-                grounded = hit.transform.position.y < (transform.position.y - 0.5f); 
+                grounded = hit.transform.position.y < (transform.position.y - 0.5f);
                 Physics2D.IgnoreCollision(overlaps[i], capsuleCollider, !grounded);
             }
-
-            else if (hit.layer == LayerMask.NameToLayer("Ladder"))
+            else if (hit.layer == LayerMask.NameToLayer("Stair"))
             {
-                climbing = true; 
+                climbing = true;
             }
         }
     }
 
     private void Update()
     {
-        CheckCollision(); 
+        CheckCollision();
 
         if (climbing)
         {
-            // Disable gravity while climbing
-            rigidbody.gravityScale = 0;
-
-            // Only move vertically while on the ladder
             direction.y = Input.GetAxis("Vertical") * moveSpeed;
-
-            // Restrict horizontal movement while climbing
-            direction.x = 0f;
+            rigidbody.gravityScale = 0f; // Turn off gravity while climbing
         }
         else if (grounded && Input.GetButtonDown("Jump"))
         {
-            direction = Vector2.up * jumpStrength; 
+            direction = Vector2.up * jumpStrength;
         }
         else
         {
-            // Restore gravity when not climbing
-            rigidbody.gravityScale = 1;
-
-            direction += Physics2D.gravity * Time.deltaTime; 
+            rigidbody.gravityScale = 1f;
+            direction += Physics2D.gravity * Time.deltaTime;
         }
 
         if (grounded)
         {
-            direction.y = Mathf.Max(direction.y, -1f); 
+            direction.y = Mathf.Max(direction.y, -1f);
         }
 
-        // Horizontal movement
         if (!climbing)
         {
             direction.x = Input.GetAxis("Horizontal") * moveSpeed;
         }
 
-        // Flipping player based on movement direction
         if (direction.x > 0f)
         {
             transform.eulerAngles = Vector3.zero;
@@ -102,5 +107,18 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         rigidbody.MovePosition(rigidbody.position + direction * Time.fixedDeltaTime);
+    }
+
+    private void AnimateSprite()
+    {
+        if (climbing)
+        {
+            spriteRenderer.sprite = climbSprite;
+        }
+        else if (direction.x != 0f)
+        {
+            spriteIndex = (spriteIndex + 1) % runSprites.Length;
+            spriteRenderer.sprite = runSprites[spriteIndex];
+        }
     }
 }

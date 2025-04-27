@@ -1078,6 +1078,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b87ead7b8892745f09eaa25d78544295, type: 3}
+--- !u!1 &1109465051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1109465053}
+  - component: {fileID: 1109465052}
+  m_Layer: 0
+  m_Name: ' Barrel Spawner'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1109465052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109465051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd234d8d77b0d4ee5b65fec1b7c720d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3941439268357766665, guid: c4f38a57880014bdfb7428cd985e7e26, type: 3}
+  minTime: 2
+  maxTime: 4
+--- !u!4 &1109465053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109465051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.74, y: 3.86, z: 0.015283836}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1150030343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1092,7 +1139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 330036250182721968, guid: b87ead7b8892745f09eaa25d78544295, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 11.561484
       objectReference: {fileID: 0}
     - target: {fileID: 330036250182721968, guid: b87ead7b8892745f09eaa25d78544295, type: 3}
       propertyPath: m_LocalScale.z
@@ -1100,11 +1147,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 330036250182721968, guid: b87ead7b8892745f09eaa25d78544295, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.65
+      value: 4.44
       objectReference: {fileID: 0}
     - target: {fileID: 330036250182721968, guid: b87ead7b8892745f09eaa25d78544295, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.31
+      value: -4.35
       objectReference: {fileID: 0}
     - target: {fileID: 330036250182721968, guid: b87ead7b8892745f09eaa25d78544295, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1389,3 +1436,4 @@ SceneRoots:
   - {fileID: 879727019}
   - {fileID: 405502426}
   - {fileID: 1615547596}
+  - {fileID: 1109465053}
